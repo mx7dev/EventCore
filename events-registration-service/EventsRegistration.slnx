@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EventsRegistration.Api/EventsRegistration.Api.csproj" />
+    <Project Path="src/EventsRegistration.Application/EventsRegistration.Application.csproj" />
+    <Project Path="src/EventsRegistration.Domain/EventsRegistration.Domain.csproj" />
+    <Project Path="src/EventsRegistration.Infrastructure/EventsRegistration.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EventsRegistration.Domain.Tests/EventsRegistration.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
