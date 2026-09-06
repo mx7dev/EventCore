@@ -4,3 +4,13 @@ GET {{EventsRegistration.Api_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+POST {{EventsRegistration.Api_HostAddress}}/api/Events
+Content-Type: application/json
+
+{
+  "name": "Conferencia de Tecnología 2026",
+  "description": "Esta es una descripción de prueba que necesita tener al menos cien caracteres para cumplir con la invariante del dominio validada en Event.Create.",
+  "venue": "Centro de Convenciones Lima",
+  "date": "2026-12-01T10:00:00",
+  "capacity": 100
+}

@@ -1,3 +1,9 @@
+using EventsRegistration.Infrastructure;
+using EventsRegistration.Application.Events.CreateEvent;
+using Microsoft.EntityFrameworkCore;
+using EventsRegistration.Domain;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<EventsRegistrationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EventsRegistration")));
+
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateEventCommand).Assembly));
+
 
 var app = builder.Build();
 
