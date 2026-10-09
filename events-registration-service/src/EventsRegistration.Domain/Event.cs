@@ -8,10 +8,11 @@ namespace EventsRegistration.Domain
         public string Venue { get; private set; }
         public DateTime Date { get; private set; }
         public int Capacity { get; private set; }
+        public int AvailableSeats { get; private set; }
         public EventStatus Status { get; private set; }
 
         private Event(Guid id, string name, string description,
-        string venue, DateTime date, int capacity, EventStatus status)
+        string venue, DateTime date, int capacity, int availableSeats, EventStatus status)
         {
             Id = id;
             Name = name;
@@ -19,6 +20,7 @@ namespace EventsRegistration.Domain
             Venue = venue;
             Date = date;
             Capacity = capacity;
+            AvailableSeats = availableSeats;
             Status = status;
         }
 
@@ -36,15 +38,34 @@ namespace EventsRegistration.Domain
             if (description.Length < 100)
                 throw new ArgumentException("Description must be at least 100 characters");
 
-
             if (string.IsNullOrWhiteSpace(venue))
                 throw new ArgumentException("Venue is required");
 
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(capacity);
-            
+
             ArgumentOutOfRangeException.ThrowIfLessThan(date, DateTime.UtcNow);
 
-            return new Event(Guid.NewGuid(), name, description, venue, date, capacity, EventStatus.Draft);
+            // Al nacer, todos los lugares están disponibles
+            return new Event(Guid.NewGuid(), name, description, venue, date, capacity, capacity, EventStatus.Draft);
+        }
+
+        public void Publish()
+        {
+            if (Status != EventStatus.Draft)
+                throw new InvalidOperationException("Only draft events can be published");
+
+            Status = EventStatus.Published;
+        }
+
+        public void ReserveSeat()
+        {
+            if (Status != EventStatus.Published)
+                throw new InvalidOperationException("Registrations are only allowed for published events");
+
+            if (AvailableSeats <= 0)
+                throw new InvalidOperationException("No seats available");
+
+            AvailableSeats--;
         }
     }
 }

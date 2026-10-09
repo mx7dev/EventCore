@@ -99,6 +99,69 @@
 
             Assert.Throws<ArgumentOutOfRangeException>(() => Event.Create(name, description, venue, date, capacity));
         }
+        // Helper: evita repetir los mismos datos válidos en cada test
+        private static Event CreateValidEvent(int capacity = 100)
+        {
+            return Event.Create("Conferencia .NET 2026", new string('a', 100),
+                                "Auditorio Central", DateTime.UtcNow.AddDays(30), capacity);
+        }
+
+        [Fact]
+        public void Create_WithValidData_SetsAvailableSeatsEqualToCapacity()
+        {
+            var evento = CreateValidEvent(capacity: 50);
+
+            Assert.Equal(50, evento.AvailableSeats);
+        }
+
+        [Fact]
+        public void Publish_WhenDraft_ChangesStatusToPublished()
+        {
+            var evento = CreateValidEvent();
+
+            evento.Publish();
+
+            Assert.Equal(EventStatus.Published, evento.Status);
+        }
+
+        [Fact]
+        public void Publish_WhenAlreadyPublished_ThrowsException()
+        {
+            var evento = CreateValidEvent();
+            evento.Publish();
+
+            Assert.Throws<InvalidOperationException>(() => evento.Publish());
+        }
+
+        [Fact]
+        public void ReserveSeat_WhenPublishedWithSeats_DecrementsAvailableSeats()
+        {
+            var evento = CreateValidEvent(capacity: 10);
+            evento.Publish();
+
+            evento.ReserveSeat();
+
+            Assert.Equal(9, evento.AvailableSeats);
+        }
+
+        [Fact]
+        public void ReserveSeat_WhenDraft_ThrowsException()
+        {
+            var evento = CreateValidEvent();
+
+            Assert.Throws<InvalidOperationException>(() => evento.ReserveSeat());
+        }
+
+        [Fact]
+        public void ReserveSeat_WhenNoSeatsLeft_ThrowsException()
+        {
+            var evento = CreateValidEvent(capacity: 1);
+            evento.Publish();
+            evento.ReserveSeat(); // se ocupa el único lugar
+
+            Assert.Throws<InvalidOperationException>(() => evento.ReserveSeat());
+        }
+
 
 
     }
