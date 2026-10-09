@@ -56,6 +56,37 @@ namespace EventsRegistration.Infrastructure.Migrations
 
                     b.ToTable("Events");
                 });
+
+            modelBuilder.Entity("EventsRegistration.Domain.Registration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AttendeeEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AttendeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("RegisteredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("TicketToken")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketToken")
+                        .IsUnique();
+
+                    b.ToTable("Registrations");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -16,6 +16,9 @@ builder.Services.AddDbContext<EventsRegistrationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("EventsRegistration")));
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IRegistrationRepository, RegistrationRepository>();
+builder.Services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<EventsRegistrationDbContext>());
+
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateEventCommand).Assembly));
 
