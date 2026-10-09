@@ -21,3 +21,6 @@ GET {{EventsRegistration.Api_HostAddress}}/api/Events/C8C479C0-80E1-4989-81F9-19
 
 ###
 GET {{EventsRegistration.Api_HostAddress}}/api/Events/00000000-0000-0000-0000-000000000001
+
+###
+POST {{EventsRegistration.Api_HostAddress}}/api/Events/C8C479C0-80E1-4989-81F9-19E88EE8472B/publish
