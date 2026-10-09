@@ -1,4 +1,5 @@
 ﻿using EventsRegistration.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsRegistration.Infrastructure
 {
@@ -15,6 +16,13 @@ namespace EventsRegistration.Infrastructure
         {
             await _context.Events.AddAsync(@event, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task<Event?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.Events
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
         }
     }
 }

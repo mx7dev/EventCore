@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using EventsRegistration.Application.Events.CreateEvent;
+using EventsRegistration.Application.Events.GetEventById;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using EventsRegistration.Application.Events.CreateEvent;
 
 namespace EventsRegistration.Api.Controllers;
 
@@ -20,5 +21,12 @@ public class EventsController : ControllerBase
     {
         var id = await _mediator.Send(command, cancellationToken);
         return Ok(id);
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        var eventDto = await _mediator.Send(new GetEventByIdQuery(id), cancellationToken);
+        return eventDto is null ? NotFound() : Ok(eventDto);
     }
 }
