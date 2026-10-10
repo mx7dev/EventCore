@@ -1,4 +1,6 @@
-﻿namespace EventsRegistration.Domain.Tests
+﻿using EventsRegistration.Domain.Registrations;
+
+namespace EventsRegistration.Domain.Tests.Registrations
 {
     public class RegistrationTests
     {

@@ -1,7 +1,10 @@
-using EventsRegistration.Infrastructure;
 using EventsRegistration.Application.Events.CreateEvent;
 using Microsoft.EntityFrameworkCore;
-using EventsRegistration.Domain;
+using EventsRegistration.Domain.Events;
+using EventsRegistration.Domain.Registrations;
+using EventsRegistration.Domain.Common;
+using EventsRegistration.Infrastructure.Persistence;
+using EventsRegistration.Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);

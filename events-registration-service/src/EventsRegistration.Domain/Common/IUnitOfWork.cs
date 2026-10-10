@@ -1,4 +1,4 @@
-﻿namespace EventsRegistration.Domain
+﻿namespace EventsRegistration.Domain.Common
 {
     public interface IUnitOfWork
     {

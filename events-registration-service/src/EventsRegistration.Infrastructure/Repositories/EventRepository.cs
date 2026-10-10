@@ -1,7 +1,8 @@
-﻿using EventsRegistration.Domain;
+﻿using EventsRegistration.Domain.Events;
+using EventsRegistration.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventsRegistration.Infrastructure
+namespace EventsRegistration.Infrastructure.Repositories
 {
     public class EventRepository : IEventRepository
     {

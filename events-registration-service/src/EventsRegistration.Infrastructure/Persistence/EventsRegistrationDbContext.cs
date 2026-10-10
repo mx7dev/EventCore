@@ -1,7 +1,9 @@
-﻿using EventsRegistration.Domain;
+﻿using EventsRegistration.Domain.Common;
+using EventsRegistration.Domain.Events;
+using EventsRegistration.Domain.Registrations;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventsRegistration.Infrastructure
+namespace EventsRegistration.Infrastructure.Persistence
 {
     public class EventsRegistrationDbContext : DbContext, IUnitOfWork
     {
@@ -12,10 +14,9 @@ namespace EventsRegistration.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // El TicketToken es lo que va en el QR: nunca puede repetirse
-            modelBuilder.Entity<Registration>()
-                .HasIndex(r => r.TicketToken)
-                .IsUnique();
+            // Aplica todas las clases IEntityTypeConfiguration de este proyecto
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(EventsRegistrationDbContext).Assembly);
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using EventsRegistration.Domain;
+﻿using EventsRegistration.Domain.Common;
+using EventsRegistration.Domain.Events;
 using MediatR;
 
 namespace EventsRegistration.Application.Events.CreateEvent

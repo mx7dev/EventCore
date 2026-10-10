@@ -1,6 +1,7 @@
-﻿using EventsRegistration.Domain;
+﻿using EventsRegistration.Domain.Registrations;
+using EventsRegistration.Infrastructure.Persistence;
 
-namespace EventsRegistration.Infrastructure
+namespace EventsRegistration.Infrastructure.Repositories
 {
     public class RegistrationRepository : IRegistrationRepository
     {

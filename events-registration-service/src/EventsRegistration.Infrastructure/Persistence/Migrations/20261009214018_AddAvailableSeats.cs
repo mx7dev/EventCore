@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace EventsRegistration.Infrastructure.Migrations
+namespace EventsRegistration.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class AddAvailableSeats : Migration

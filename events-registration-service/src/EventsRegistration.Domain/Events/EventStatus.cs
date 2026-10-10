@@ -1,4 +1,4 @@
-namespace EventsRegistration.Domain
+namespace EventsRegistration.Domain.Events
 {
     public enum EventStatus
     {
