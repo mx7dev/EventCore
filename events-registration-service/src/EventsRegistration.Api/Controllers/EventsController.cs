@@ -1,11 +1,11 @@
-﻿using EventsRegistration.Application.Events.CreateEvent;
+﻿using EventsRegistration.Api.Requests;
+using EventsRegistration.Application.Events.CreateEvent;
 using EventsRegistration.Application.Events.GetEventById;
 using EventsRegistration.Application.Events.PublishEvent;
+using EventsRegistration.Application.Registrations.RegisterAttendee;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-
-using EventsRegistration.Api.Requests;
-using EventsRegistration.Application.Registrations.RegisterAttendee;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace EventsRegistration.Api.Controllers;
@@ -61,6 +61,10 @@ public class EventsController : ControllerBase
         {
             // Datos inválidos (nombre vacío, email inválido) → 400
             return BadRequest(ex.Message);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            return Conflict("The event was modified by another request. Please try again.");
         }
         catch (InvalidOperationException ex)
         {

@@ -22,7 +22,7 @@ namespace EventsRegistration.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EventsRegistration.Domain.Event", b =>
+            modelBuilder.Entity("EventsRegistration.Domain.Events.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,6 +45,11 @@ namespace EventsRegistration.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -57,7 +62,7 @@ namespace EventsRegistration.Infrastructure.Persistence.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("EventsRegistration.Domain.Registration", b =>
+            modelBuilder.Entity("EventsRegistration.Domain.Registrations.Registration", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

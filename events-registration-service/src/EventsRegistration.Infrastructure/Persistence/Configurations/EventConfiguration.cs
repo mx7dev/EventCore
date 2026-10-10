@@ -9,6 +9,8 @@ namespace EventsRegistration.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Event> builder)
         {
             builder.HasKey(e => e.Id);
+            builder.Property<byte[]>("RowVersion").IsRowVersion();
+
         }
     }
 }
