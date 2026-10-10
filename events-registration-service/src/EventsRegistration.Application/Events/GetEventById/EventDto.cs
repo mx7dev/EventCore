@@ -7,5 +7,6 @@
      string Venue,
      DateTime Date,
      int Capacity,
+     int AvailableSeats,
      string Status);
 }

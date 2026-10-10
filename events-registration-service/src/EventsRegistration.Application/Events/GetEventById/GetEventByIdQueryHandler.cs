@@ -26,6 +26,7 @@ namespace EventsRegistration.Application.Events.GetEventById
                 existingEvent.Venue,
                 existingEvent.Date,
                 existingEvent.Capacity,
+                existingEvent.AvailableSeats,
                 existingEvent.Status.ToString());
         }
     }

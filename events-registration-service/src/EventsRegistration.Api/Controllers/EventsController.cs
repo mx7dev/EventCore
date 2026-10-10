@@ -4,6 +4,10 @@ using EventsRegistration.Application.Events.PublishEvent;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
+using EventsRegistration.Api.Requests;
+using EventsRegistration.Application.Registrations.RegisterAttendee;
+
+
 namespace EventsRegistration.Api.Controllers;
 
 [ApiController]
@@ -44,5 +48,26 @@ public class EventsController : ControllerBase
             return Conflict(ex.Message);
         }
     }
+    [HttpPost("{id:guid}/registrations")]
+    public async Task<IActionResult> Register(Guid id, RegisterAttendeeRequest request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var command = new RegisterAttendeeCommand(id, request.AttendeeName, request.AttendeeEmail);
+            var result = await _mediator.Send(command, cancellationToken);
+            return result is null ? NotFound() : Ok(result);
+        }
+        catch (ArgumentException ex)
+        {
+            // Datos inválidos (nombre vacío, email inválido) → 400
+            return BadRequest(ex.Message);
+        }
+        catch (InvalidOperationException ex)
+        {
+            // Regla de negocio (evento no publicado, sin lugares) → 409
+            return Conflict(ex.Message);
+        }
+    }
+
 
 }
